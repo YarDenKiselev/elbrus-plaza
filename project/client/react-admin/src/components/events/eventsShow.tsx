@@ -1,9 +1,8 @@
-import { Show, SimpleShowLayout, TextField, NumberField, BooleanField, SelectField } from 'react-admin';
+import { Show, SimpleShowLayout, TextField, DateField, NumberField } from 'react-admin';
 import { Card, CardContent, Typography, Divider, Box, Grid } from '@mui/material';
-import HotelIcon from '@mui/icons-material/Hotel';
-import { roomTypes, viewTypes } from './RoomsEdit';
+import EventIcon from '@mui/icons-material/Event';
 
-export const RoomsShow = () => (
+export const EventsShow = () => (
     <Show>
         <Card sx={{
             maxWidth: 1400,
@@ -15,18 +14,18 @@ export const RoomsShow = () => (
         }}>
             <CardContent>
                 <Box display="flex" alignItems="center" mb={3}>
-                    <HotelIcon sx={{ fontSize: 56, mr: 3, color: '#90caf9' }} />
+                    <EventIcon sx={{ fontSize: 56, mr: 3, color: '#90caf9' }} />
                     <Typography variant="h4" fontWeight={800} fontFamily="Montserrat, Arial, sans-serif" color="#fff">
-                        Информация о номере
+                        Информация о событии
                     </Typography>
                 </Box>
                 <Divider sx={{ mb: 3, bgcolor: '#444' }} />
         <SimpleShowLayout>
                     <Grid container spacing={4} columns={12}>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>ID номера</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>ID события</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <TextField source="ID_Room" />
+                                <NumberField source="ID_Events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
@@ -36,51 +35,51 @@ export const RoomsShow = () => (
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Номер комнаты</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Название события</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Number_room" />
+                                <TextField source="Name_events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Тип номера</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Описание</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <SelectField source="Type_room" choices={roomTypes} />
+                                <TextField source="Description_events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Количество кроватей</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Дата начала</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Number_of_beds" />
+                                <DateField source="Start_date_events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доступность</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Дата окончания</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Room_Availability" />
+                                <DateField source="End_date_events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Цена за ночь</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Локация</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Room_rate_per_night" options={{ style: 'currency', currency: 'RUB' }} />
+                                <TextField source="Location_event" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Вид из окна</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Цена</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <SelectField source="View_from_the_windows" choices={viewTypes} />
+                                <NumberField source="Price_events" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доступ для инвалидов</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Свободных мест</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Accessibility_for_people_with_disabilities" />
+                                <NumberField source="Number_of_available_seats" />
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доп. место для сна</Typography>
+                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Статус</Typography>
                             <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Extra_sleeping_place" />
+                                <TextField source="Status_events" />
                             </Typography>
                         </Grid>
                     </Grid>
@@ -88,4 +87,4 @@ export const RoomsShow = () => (
             </CardContent>
         </Card>
     </Show>
-);
+); 

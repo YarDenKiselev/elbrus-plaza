@@ -32,3 +32,16 @@ export interface Client {
 	Password_client: string
 	Points_balance: number
 }
+
+export interface Booking extends RaRecord {
+    ID_Booking: number;
+    ID_Room: number;
+    ID_Client: number;
+    in_date_booking: string;
+    out_date_booking: string;
+    price_of_booking: number;
+    room_type?: string;
+    name_client?: string;
+    email_client?: string;
+    phone_client?: string;
+}

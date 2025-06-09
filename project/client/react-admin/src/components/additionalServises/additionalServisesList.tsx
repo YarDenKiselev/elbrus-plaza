@@ -1,6 +1,6 @@
 import { List, Datagrid, TextField, NumberField } from 'react-admin';
 import { Card, CardContent, Typography, Divider, Box } from '@mui/material';
-import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const StyledDatagrid = () => (
     <Datagrid
@@ -34,19 +34,20 @@ const StyledDatagrid = () => (
             },
             '& .RaDatagrid-headerRow': {
                 borderBottomColor: 'rgba(81, 81, 81, 1)',
-            }
+            },
         }}
     >
-        <TextField source="ID_Hotel" label="ID" />
-        <TextField source="Name_hotel" label="Название" />
-        <TextField source="Adress_hotel" label="Адрес" />
-        <TextField source="Phone_hotel" label="Телефон" />
-        <NumberField source="Rating_hotel" label="Рейтинг" />
-        <TextField source="Email_hotel" label="Email" />
+        <NumberField source="ID_Additional" label="ID" />
+        <TextField source="Name_Additional" label="Название услуги" />
+        <NumberField 
+            source="Price_Additional" 
+            label="Цена (₽)"
+            options={{ style: 'currency', currency: 'RUB' }}
+        />
     </Datagrid>
 );
 
-export const HotelList = () => (
+export const AdditionalServisesList = () => (
     <List>
         <Card sx={{
             maxWidth: '95%',
@@ -57,9 +58,9 @@ export const HotelList = () => (
         }}>
             <CardContent>
                 <Box display="flex" alignItems="center" mb={3}>
-                    <HomeWorkIcon sx={{ fontSize: 40, mr: 2, color: '#90caf9' }} />
+                    <LocalOfferIcon sx={{ fontSize: 40, mr: 2, color: '#90caf9' }} />
                     <Typography variant="h4" fontWeight={600} fontFamily="Montserrat, Arial, sans-serif" color="text.primary">
-                        Список отелей
+                        Дополнительные услуги
                     </Typography>
                 </Box>
                 <Divider sx={{ mb: 3, bgcolor: 'rgba(0, 0, 0, 0.1)' }} />
@@ -68,3 +69,5 @@ export const HotelList = () => (
         </Card>
     </List>
 );
+
+export default AdditionalServisesList;

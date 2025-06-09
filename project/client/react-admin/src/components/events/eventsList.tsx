@@ -1,6 +1,6 @@
-import { List, Datagrid, TextField, NumberField } from 'react-admin';
+import { List, Datagrid, TextField, DateField, NumberField } from 'react-admin';
 import { Card, CardContent, Typography, Divider, Box } from '@mui/material';
-import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import EventIcon from '@mui/icons-material/Event';
 
 const StyledDatagrid = () => (
     <Datagrid
@@ -34,19 +34,43 @@ const StyledDatagrid = () => (
             },
             '& .RaDatagrid-headerRow': {
                 borderBottomColor: 'rgba(81, 81, 81, 1)',
-            }
+            },
         }}
     >
-        <TextField source="ID_Hotel" label="ID" />
-        <TextField source="Name_hotel" label="Название" />
-        <TextField source="Adress_hotel" label="Адрес" />
-        <TextField source="Phone_hotel" label="Телефон" />
-        <NumberField source="Rating_hotel" label="Рейтинг" />
-        <TextField source="Email_hotel" label="Email" />
+        <NumberField source="ID_Events" label="ID события" />
+        <NumberField source="ID_Hotel" label="ID отеля" />
+        <TextField source="Name_events" label="Название" />
+        <TextField source="Description_events" label="Описание" />
+        <DateField 
+            source="Start_date_events" 
+            label="Начало" 
+            locales="ru-RU" 
+            showTime
+        />
+        <DateField 
+            source="End_date_events" 
+            label="Окончание" 
+            locales="ru-RU"
+            showTime
+        />
+        <TextField source="Location_event" label="Место" />
+        <NumberField 
+            source="Price_events" 
+            label="Цена" 
+            options={{ style: 'currency', currency: 'RUB' }}
+        />
+        <NumberField 
+            source="Number_of_available_seats" 
+            label="Свободно мест"
+        />
+        <TextField 
+            source="Status_events" 
+            label="Статус"
+        />
     </Datagrid>
 );
 
-export const HotelList = () => (
+export const EventsList = () => (
     <List>
         <Card sx={{
             maxWidth: '95%',
@@ -57,9 +81,9 @@ export const HotelList = () => (
         }}>
             <CardContent>
                 <Box display="flex" alignItems="center" mb={3}>
-                    <HomeWorkIcon sx={{ fontSize: 40, mr: 2, color: '#90caf9' }} />
+                    <EventIcon sx={{ fontSize: 40, mr: 2, color: '#90caf9' }} />
                     <Typography variant="h4" fontWeight={600} fontFamily="Montserrat, Arial, sans-serif" color="text.primary">
-                        Список отелей
+                        Мероприятия и события
                     </Typography>
                 </Box>
                 <Divider sx={{ mb: 3, bgcolor: 'rgba(0, 0, 0, 0.1)' }} />
