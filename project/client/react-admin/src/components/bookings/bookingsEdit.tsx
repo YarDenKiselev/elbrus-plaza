@@ -1,40 +1,40 @@
-import { Edit, SimpleForm, TextInput, DateInput, NumberInput, useNotify, useRedirect } from 'react-admin';
+import { Edit, SimpleForm, TextInput, DateInput, NumberInput, SelectInput, useNotify, useRedirect } from 'react-admin';
 
-const parseDateToISO = (date: string | Date) => date ? new Date(date).toISOString() : '';
-const formatDateToLocal = (date: string | Date) => {
-  if (!date) return '';
-  const d = new Date(date);
-  return d.toLocaleDateString('ru-RU');
-};
+const statusChoices = [
+  { id: 'pending', name: 'Ожидание' },
+  { id: 'confirmed', name: 'Подтверждено' },
+  { id: 'cancelled', name: 'Отменено' },
+  { id: 'completed', name: 'Завершено' },
+];
+
+const paymentChoices = [
+  { id: 'unpaid', name: 'Не оплачено' },
+  { id: 'paid', name: 'Оплачено' },
+  { id: 'partially_paid', name: 'Частично оплачено' },
+  { id: 'refunded', name: 'Возврат' },
+];
 
 export const BookingsEdit = () => {
   const notify = useNotify();
   const redirect = useRedirect();
 
   const onError = (error: Error) => {
-    let message = error.message;
-    if (message.includes('not found') || message.includes('Не найден')) {
-      message = 'Запись не найдена. Проверьте правильность данных.';
-    } else if (message.includes('client') || message.includes('клиент')) {
-      message = 'Клиент не найден. Проверьте данные клиента.';
-    } else {
-      message = 'Произошла ошибка. Попробуйте еще раз или обратитесь к администратору.';
-    }
-    notify(message, { type: 'error' });
+    notify(`Ошибка: ${error.message}`, { type: 'error' });
     redirect('list');
   };
 
   return (
     <Edit mutationOptions={{ onError }}>
       <SimpleForm>
-        <TextInput source="ID_Booking" label="ID бронирования" disabled />
-        <TextInput source="ID_Client" label="ID клиента" />
-        <TextInput source="ID_Room" label="ID комнаты" />
-        <TextInput source="Room_Type" label="Тип номера" />
-        <DateInput source="In_date_booking" label="Дата заезда" parse={parseDateToISO} format={formatDateToLocal} />
-        <DateInput source="Out_date_booking" label="Дата выезда" parse={parseDateToISO} format={formatDateToLocal} />
+        <TextInput source="ID_booking" label="ID бронирования" disabled />
+        <TextInput source="ID_client" label="ID клиента" />
+        <TextInput source="ID_Hotel" label="ID отеля" />
+        <TextInput source="ID_room" label="ID номера" />
+        <DateInput source="In_date_booking" label="Дата заезда" />
+        <DateInput source="Out_day_booking" label="Дата выезда" />
         <NumberInput source="Price_of_booking" label="Стоимость" />
-        <TextInput source="Created_At" label="Создано" disabled />
+        <SelectInput source="Status_booking" label="Статус брони" choices={statusChoices} />
+        <SelectInput source="Status_payment" label="Статус оплаты" choices={paymentChoices} />
       </SimpleForm>
     </Edit>
   );

@@ -1,70 +1,17 @@
-import { List, Datagrid, TextField, NumberField } from 'react-admin';
-import { Card, CardContent, Typography, Divider, Box } from '@mui/material';
-import HomeWorkIcon from '@mui/icons-material/HomeWork';
-
-const StyledDatagrid = () => (
-    <Datagrid
-        rowClick="show"
-        sx={{
-            '& .RaDatagrid-table': {
-                borderCollapse: 'separate',
-                borderSpacing: '0 8px',
-            },
-            '& .RaDatagrid-thead': {
-                position: 'relative',
-                zIndex: 1,
-            },
-            '& .RaDatagrid-headerCell': {
-                backgroundColor: 'rgba(35, 39, 47, 0.8)',
-                color: '#fff',
-                fontWeight: 'bold',
-                borderBottom: 'none',
-            },
-            '& .RaDatagrid-row': {
-                backgroundColor: 'rgba(35, 39, 47, 0.8)',
-                borderRadius: '4px',
-                '&:hover': {
-                    backgroundColor: 'rgba(144, 202, 249, 0.2)',
-                },
-            },
-            '& .RaDatagrid-rowCell': {
-                borderBottom: 'none',
-                color: '#fff',
-                padding: '16px',
-            },
-            '& .RaDatagrid-headerRow': {
-                borderBottomColor: 'rgba(81, 81, 81, 1)',
-            }
-        }}
-    >
-        <TextField source="ID_Hotel" label="ID" />
-        <TextField source="Name_hotel" label="Название" />
-        <TextField source="Adress_hotel" label="Адрес" />
-        <TextField source="Phone_hotel" label="Телефон" />
-        <NumberField source="Rating_hotel" label="Рейтинг" />
-        <TextField source="Email_hotel" label="Email" />
-    </Datagrid>
-);
+import { List, Datagrid, TextField, NumberField, EditButton, ShowButton } from 'react-admin';
+import { Hotel } from '../../interfaces';
 
 export const HotelList = () => (
     <List>
-        <Card sx={{
-            maxWidth: '95%',
-            margin: '20px auto',
-            borderRadius: 4,
-            boxShadow: 3,
-            background: 'rgba(35, 39, 47, 0.05)',
-        }}>
-            <CardContent>
-                <Box display="flex" alignItems="center" mb={3}>
-                    <HomeWorkIcon sx={{ fontSize: 40, mr: 2, color: '#90caf9' }} />
-                    <Typography variant="h4" fontWeight={600} fontFamily="Montserrat, Arial, sans-serif" color="text.primary">
-                        Список отелей
-                    </Typography>
-                </Box>
-                <Divider sx={{ mb: 3, bgcolor: 'rgba(0, 0, 0, 0.1)' }} />
-                <StyledDatagrid />
-            </CardContent>
-        </Card>
+        <Datagrid rowClick="show">
+            <TextField source="ID_Hotel" label="ID" />
+            <TextField source="Name_hotel" label="Название" />
+            <TextField source="Adress_hotel" label="Адрес" />
+            <TextField source="Phone_hotel" label="Телефон" />
+            <NumberField source="Rating_hotel" label="Рейтинг" />
+            <TextField source="Email_hotel" label="Email" />
+            <ShowButton />
+            <EditButton />
+        </Datagrid>
     </List>
 );

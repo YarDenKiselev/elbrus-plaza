@@ -1,91 +1,24 @@
 import { Show, SimpleShowLayout, TextField, NumberField, BooleanField, SelectField } from 'react-admin';
-import { Card, CardContent, Typography, Divider, Box, Grid } from '@mui/material';
-import HotelIcon from '@mui/icons-material/Hotel';
+
 import { roomTypes, viewTypes } from './RoomsEdit';
 
 export const RoomsShow = () => (
     <Show>
-        <Card sx={{
-            maxWidth: 1400,
-            margin: '40px auto',
-            borderRadius: 6,
-            boxShadow: 6,
-            background: 'rgba(35, 39, 47, 0.98)',
-            color: '#fff'
-        }}>
-            <CardContent>
-                <Box display="flex" alignItems="center" mb={3}>
-                    <HotelIcon sx={{ fontSize: 56, mr: 3, color: '#90caf9' }} />
-                    <Typography variant="h4" fontWeight={800} fontFamily="Montserrat, Arial, sans-serif" color="#fff">
-                        Информация о номере
-                    </Typography>
-                </Box>
-                <Divider sx={{ mb: 3, bgcolor: '#444' }} />
         <SimpleShowLayout>
-                    <Grid container spacing={4} columns={12}>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>ID номера</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <TextField source="ID_Room" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>ID отеля</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="ID_Hotel" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Номер комнаты</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Number_room" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Тип номера</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <SelectField source="Type_room" choices={roomTypes} />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Количество кроватей</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Number_of_beds" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доступность</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Room_Availability" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Цена за ночь</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <NumberField source="Room_rate_per_night" options={{ style: 'currency', currency: 'RUB' }} />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Вид из окна</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <SelectField source="View_from_the_windows" choices={viewTypes} />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доступ для инвалидов</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Accessibility_for_people_with_disabilities" />
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="subtitle2" sx={{ color: '#90caf9', fontWeight: 700 }}>Доп. место для сна</Typography>
-                            <Typography variant="h6" fontWeight={600} color="#fff">
-                                <BooleanField source="Extra_sleeping_place" />
-                            </Typography>
-                        </Grid>
-                    </Grid>
+            <TextField source="ID_Room" label="ID номера" />
+            <NumberField source="ID_Hotel" label="ID отеля" />
+            <NumberField source="Number_room" label="Номер комнаты" />
+            <SelectField source="Type_room" choices={roomTypes} label="Тип номера" />
+            <NumberField source="Number_of_beds" label="Количество кроватей" />
+            <BooleanField source="Room_Availability" label="Доступность" />
+            <NumberField 
+                source="Room_rate_per_night" 
+                label="Цена за ночь" 
+                options={{ style: 'currency', currency: 'RUB' }}
+            />
+            <SelectField source="View_from_the_windows" choices={viewTypes} label="Вид из окна" />
+            <BooleanField source="Accessibility_for_people_with_disabilities" label="Доступ для инвалидов" />
+            <BooleanField source="Extra_sleeping_place" label="Доп. место для сна" />
         </SimpleShowLayout>
-            </CardContent>
-        </Card>
     </Show>
 );

@@ -4,7 +4,7 @@ export const HotelCreate = () => {
     const redirect = useRedirect();
     
     const onSuccess = (data: any) => {
-     
+        // Перенаправляем на список отелей вместо просмотра созданного
         redirect('list', 'hotel');
     };
 

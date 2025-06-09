@@ -1,29 +1,12 @@
 import { DataProvider, fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-const apiUrl = 'http://26.118.5.15:8787/api';
+const apiUrl = 'http://localhost:8787/api';
 const httpClient = fetchUtils.fetchJson;
 
+// Функция преобразования записей
 const transformRecord = (record: any) => {
-    if (record.ID_Booking !== undefined) {
-        return {
-            ...record,
-            id: record.ID_Booking,
-            room_type: record.room_type ?? record.Room_Type,
-            in_date_booking: record.in_date_booking ?? record.In_date_booking,
-            out_date_booking: record.out_date_booking ?? record.Out_date_booking,
-            price_of_booking: record.price_of_booking ?? record.Price_of_booking,
-            name_client: record.name_client ?? record.Name_client,
-            email_client: record.email_client ?? record.Email_client,
-            phone_client: record.phone_client ?? record.Phone_client,
-        };
-    }
-    if (record.ID_Events !== undefined) {
-        return {
-            ...record,
-            id: record.ID_Events
-        };
-    }
+    
     if (record.ID_Room !== undefined) {
         return {
             ...record,
@@ -36,19 +19,17 @@ const transformRecord = (record: any) => {
             id: record.ID_Client
         };
     }
+    // Преобразование отелей
     if (record.ID_Hotel !== undefined) {
         return { 
             ...record,
             id: record.ID_Hotel
         };
     }
-    if (record.ID_Additional !== undefined) {
-        return {
-            ...record,
-            id: record.ID_Additional
-        };
-    }
-    return null;
+    // Преобразование клиентов
+
+
+    return record;
 };
 
 export const dataProvider: DataProvider = {
@@ -64,23 +45,21 @@ export const dataProvider: DataProvider = {
             ...params.filter
         };
         if (resource === 'hotel-rooms') {
-          
+            // 1. Достаём ID отеля из фильтров
             const { ID_Hotel, Room_Availability } = params.filter;
             let endpoint = 'rooms'
-            let status = Room_Availability;
-            if (status !== 'all' && status !== 'true' && status !== 'false') status = 'all';
-            if (status === 'all') endpoint = 'rooms'
-            if (status === 'false') endpoint = 'rooms/unavailable'
-            if (status === 'true') endpoint = 'rooms/available'
+            if (Room_Availability === 'all') endpoint = 'rooms'
+            if (Room_Availability === 'false') endpoint = 'rooms/unavailable'
+            if (Room_Availability === 'true') endpoint = 'rooms/available'
             
-           
+            // 2. Формируем кастомный URL
             const url = `${apiUrl}/hotel/${ID_Hotel}/${endpoint}`;
             console.log(url)
             
-            
+            // 3. Делаем запрос
             const { json } = await httpClient(url);
             
-            return { data: json.map(transformRecord).filter(Boolean), total: json.length };
+            return { data: json.map(transformRecord), total: json.length };
         }
 
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
@@ -88,7 +67,7 @@ export const dataProvider: DataProvider = {
         const { json, headers } = await httpClient(url);
 
         return {
-            data: json.map(transformRecord).filter(Boolean),
+            data: json.map(transformRecord),
             total: parseInt(headers.get('x-total-count') || json.length, 10)
         };
     },
@@ -105,7 +84,7 @@ export const dataProvider: DataProvider = {
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
         const { json } = await httpClient(url);
-        return { data: json.map(transformRecord).filter(Boolean) };
+        return { data: json.map(transformRecord) };
     },
 
     getManyReference: async (resource, params) => {
@@ -125,18 +104,13 @@ export const dataProvider: DataProvider = {
         const { json, headers } = await httpClient(url);
 
         return {
-            data: json.map(transformRecord).filter(Boolean),
+            data: json.map(transformRecord),
             total: parseInt(headers.get('x-total-count') || json.length, 10)
         };
     },
 
     create: async (resource, params) => {
-        let url;
-        if (resource === 'bookings') {
-            url = `${apiUrl}/bookings/admin`;
-        } else {
-            url = `${apiUrl}/${resource}`;
-        }
+        const url = `${apiUrl}/${resource}`;
         const { json } = await httpClient(url, {
             method: 'POST',
             body: JSON.stringify(params.data),
